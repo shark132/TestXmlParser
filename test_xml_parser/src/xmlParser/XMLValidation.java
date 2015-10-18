@@ -24,23 +24,19 @@ public class XMLValidation {
         boolean validationSuccess = validateXMLSchema(xsdPath, xmlPath);
 
         if (validationSuccess) {
-            //getFigures(xmlPath); // получение элементов из файла .xml
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            try {
+                parser = factory.newSAXParser();
+                XmlSaxParser saxp = new XmlSaxParser();
 
+                parser.parse(new File(xmlPath), saxp);
+            }
+            catch (SAXException | ParserConfigurationException | IOException e) {
+                System.out.print(e.getMessage());
+            }
         }
         else {
             System.out.println("Error. Check your file name or destination");
-        }
-
-
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        try {
-            parser = factory.newSAXParser();
-            XmlSaxParser saxp = new XmlSaxParser();
-
-            parser.parse(new File("C:\\Job\\test\\test.xml"), saxp);
-        }
-        catch (SAXException | ParserConfigurationException | IOException e) {
-            System.out.print(e.getMessage());
         }
     }
 
