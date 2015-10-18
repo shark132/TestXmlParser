@@ -112,14 +112,4 @@ public class XMLValidation {
         }
         else return false;
     }
-    /**
-     * Метод получает цвет фигуры из xml файла
-     * @return void
-     */
-    public static String getColor(Node node) {
-        Element element = (Element) node;
-        String color = element.getElementsByTagName("color").item(0).getTextContent();
-
-        return color ;
-    }
 }
