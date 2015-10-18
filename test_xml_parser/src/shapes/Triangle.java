@@ -7,12 +7,7 @@ import java.util.ArrayList;
  */
 public class Triangle extends Shape {
 
-    private float firstSide;
-    private float secondSide;
-    private float thirdSide;
     private static int sidesCount = 3;
-
-   // private float semiPerimetr = 0; // полупериметр
 
     public Triangle(ArrayList<Float> list, String color) {
         super(list, color);
