@@ -17,8 +17,6 @@ import shapes.*;
 public class XMLValidation {
 
     public static void main(String[] args) {
-        //String xsdPath = "test_xml_parser\\src\\xmlParser\\shapes.xsd";
-        //String xmlPath = "C:\\Job\\test\\test.xml";
         String xsdPath = "shapes.xsd";
         String xmlPath = args[0];
         SAXParser parser;
@@ -84,8 +82,13 @@ public class XMLValidation {
 
         }
         else if ("triangle".equals(name)) {
-            figure = new Triangle(list,color);
-            figure.display();
+            if (isTriangle(list)) {
+                figure = new Triangle(list,color);
+                figure.display();
+            }
+            else {
+                System.out.println("Such triangle does not exist");
+            }
         }
 
         //figureName == circle, согласно заданной схеме иных названий быть не может
@@ -98,29 +101,21 @@ public class XMLValidation {
     }
 
     /**
-     * Метод получает длины сторон текущей фигуры
+     * Метод проверяет возможность существования треугольника
      * @return list
      */
-    public static ArrayList<Float> getSides(int sidesCount, Node node) {
-        ArrayList<Float> list = new ArrayList<Float>();
-        Element element = (Element) node;
-        String strSide;
 
-        for (int i = 0; i < sidesCount; i++) {
+    public static boolean isTriangle(ArrayList<Float> list) {
+        //Проверка возможности существования треугольника
+        float firstSecondSum = list.get(0) + list.get(1);
+        float firstThirdSum = list.get(0) + list.get(2);
+        float secondThirdSum = list.get(1) + list.get(2);
 
-            if (!"circle".equals(node.getNodeName())) {
-                strSide = element.getElementsByTagName("side").item(i).getTextContent();
-            }
-            else {
-                strSide = element.getElementsByTagName("diameter").item(i).getTextContent();
-            }
-
-            float side = Float.parseFloat(strSide);
-            list.add(side);
+        if (firstSecondSum > list.get(2) && firstThirdSum > list.get(1) && secondThirdSum > list.get(0)) {
+            return true;
         }
-        return list ;
+        else return false;
     }
-
     /**
      * Метод получает цвет фигуры из xml файла
      * @return void
